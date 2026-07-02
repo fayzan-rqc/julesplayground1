@@ -35,6 +35,21 @@ ParkDirect is a web-based, mobile-friendly parking booking system designed to ma
    ```
    The application will be available at `http://127.0.0.1:5001`.
 
+### How to Open and Inspect the Database
+
+Since the app uses SQLite, you can easily inspect the database using the command line:
+
+1. **Open the Database**:
+   ```bash
+   sqlite3 instance/parking.db
+   ```
+
+2. **Useful Commands inside SQLite**:
+   - `.tables` - List all tables (`bay`, `booking`).
+   - `SELECT * FROM bay;` - View all parking slots and their priorities.
+   - `SELECT * FROM booking;` - View all current bookings.
+   - `.quit` - Exit the SQLite interface.
+
 ### How to Use
 
 1. **User Profile**:
