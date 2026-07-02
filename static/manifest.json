@@ -1,0 +1,16 @@
+{
+  "name": "ParkDirect",
+  "short_name": "ParkDirect",
+  "description": "Enterprise Parking Privilege & Allocation System",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f0e8",
+  "theme_color": "#1a1a1a",
+  "icons": [
+    {
+      "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuAgCJlk_KU-zcwzynC6SJ-Q52qWSCOZYyPPMkQ13rF1kRiER0Ipdq4B7EhluYn0riPaiRH1lAgOfYWbpVphOQBFE7xmaH9OmCaIWoNFjU7Oxw3vXiZMnxG1pWtFlUXkSLX_4W4YCDm0W2ji7uRsmv4KNCOStQek01OK9VstYFaQSdNdDYFEAW2KwBwanrjrk5XZgZ1CKZICxqoOUBHTm66bZevIz3x9XG44J3iFIl0GfS42Lw33kdZxBMxsPeg05qvWBpoPHtR2314",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

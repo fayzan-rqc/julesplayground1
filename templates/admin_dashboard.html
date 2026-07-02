@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <link rel="manifest" href="/static/manifest.json">
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("/static/sw.js");
+            });
+        }
+    </script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ParkDirect Admin Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1a1a1a",
+                        "background": "#f5f0e8",
+                        "primary-container": "#ffcc00",
+                        "secondary": "#e63b2e",
+                        "surface": "#f5f0e8",
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #f5f0e8; color: #1a1a1a; }
+        .border-heavy { border-width: 4px; border-color: #1a1a1a; }
+        .shadow-offset { box-shadow: 6px 6px 0px 0px #1a1a1a; }
+    </style>
+</head>
+<body class="font-body antialiased min-h-screen flex flex-col md:flex-row">
+<aside class="hidden md:flex flex-col h-screen fixed left-0 top-0 pt-8 bg-background border-r-4 border-primary w-72 z-40">
+<div class="px-8 mb-12">
+<div class="text-3xl font-headline font-black text-primary border-4 border-primary px-4 py-2 bg-primary-container inline-block shadow-offset mb-6">PARKDIRECT</div>
+</div>
+<nav class="flex-1 px-4 space-y-2">
+<a class="bg-primary-container text-primary border-4 border-primary shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] my-2 p-4 flex items-center gap-4 font-headline uppercase font-bold tracking-tight" href="#">
+<span class="material-symbols-outlined text-2xl">dashboard</span> Overview
+</a>
+</nav>
+<div class="p-4 mt-auto">
+<a href="{{ url_for('index') }}" class="w-full bg-secondary text-white border-4 border-primary shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] p-4 flex items-center justify-center gap-4 font-headline uppercase font-bold tracking-tight">
+<span class="material-symbols-outlined">logout</span> Logout
+</a>
+</div>
+</aside>
+
+<main class="flex-1 md:ml-72 p-6 md:p-12 w-full max-w-7xl mx-auto">
+<header class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
+<div>
+<h1 class="text-5xl md:text-7xl font-headline font-black uppercase tracking-tighter text-primary mb-2">Daily Overview</h1>
+<p class="text-xl font-body font-semibold border-l-4 border-primary pl-4 py-1">Managing currently active and upcoming slots.</p>
+</div>
+</header>
+
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<section class="lg:col-span-12 border-4 border-primary bg-surface shadow-offset">
+<div class="bg-primary border-b-4 border-primary p-4 flex justify-between items-center">
+<h2 class="text-3xl font-headline font-bold text-white uppercase tracking-tight flex items-center gap-3">All Bookings</h2>
+</div>
+<div class="overflow-x-auto p-4 md:p-6">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b-4 border-primary">
+<th class="py-4 px-4 font-headline font-bold text-lg uppercase tracking-tight w-24">Slot #</th>
+<th class="py-4 px-4 font-headline font-bold text-lg uppercase tracking-tight">Person</th>
+<th class="py-4 px-4 font-headline font-bold text-lg uppercase tracking-tight">Dept</th>
+<th class="py-4 px-4 font-headline font-bold text-lg uppercase tracking-tight">Date</th>
+<th class="py-4 px-4 font-headline font-bold text-lg uppercase tracking-tight text-right">Action</th>
+</tr>
+</thead>
+<tbody class="font-body text-lg font-medium">
+{% for booking in bookings %}
+<tr class="border-b-2 border-primary hover:bg-[#e8e3da] transition-colors">
+<td class="py-4 px-4"><span class="bg-primary text-white px-2 py-1 font-bold">{{ booking.bay.bay_number }}</span></td>
+<td class="py-4 px-4">{{ booking.user_name }}</td>
+<td class="py-4 px-4">{{ booking.user_dept }}</td>
+<td class="py-4 px-4">{{ booking.date }}</td>
+<td class="py-4 px-4 text-right">
+    <form action="{{ url_for('cancel', booking_id=booking.id) }}" method="POST">
+        <button class="text-secondary font-bold">CANCEL</button>
+    </form>
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</main>
+</body></html>
