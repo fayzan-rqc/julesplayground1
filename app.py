@@ -65,7 +65,7 @@ def index():
     if 'user_name' not in session or 'user_dept' not in session:
         return redirect(url_for('profile'))
 
-    today = datetime.now().date()
+    today_val = datetime.now().date()
     all_bays = Bay.query.all()
     bookings = {b.bay_id: b for b in get_current_bookings()}
 
@@ -84,7 +84,7 @@ def index():
             pass
 
     return render_template('index.html', bays=all_bays, bookings=bookings,
-                           dept_summary=dept_summary, is_open=is_within_booking_window())
+                           dept_summary=dept_summary, is_open=is_within_booking_window(), today=today_val)
 
 @app.route('/book/<int:bay_id>', methods=['POST'])
 def book(bay_id):
@@ -169,9 +169,10 @@ def bookings():
     if 'user_name' not in session:
         return redirect(url_for('profile'))
     user_name = session['user_name']
+    today_val = datetime.now().date()
     # Show all history for this user
     my_bookings = Booking.query.filter_by(user_name=user_name).order_by(Booking.date.desc()).all()
-    return render_template('bookings.html', bookings=my_bookings)
+    return render_template('bookings.html', bookings=my_bookings, today=today_val)
 
 @app.route('/admin')
 def admin_login():
